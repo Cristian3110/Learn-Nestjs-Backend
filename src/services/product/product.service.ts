@@ -28,6 +28,7 @@ export class ProductService {
     return this.products.find((item) => item.id === id);
   }
 
+  //Nota: El payload es como el cuerpo de los datos enviados
   create(payload: any) {
     //contador
     this.counterId = this.counterId + 1;
@@ -39,5 +40,18 @@ export class ProductService {
     return newProduct;
   }
 
-  //todo: realizar actualizar y eliminar
+  update(id: number, payload: any) {
+    const product = this.findOne(id);
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === id);
+      this.products[index] = {
+        ...product,
+        ...payload,
+      };
+      return this.products[index];
+    }
+    return null;
+  }
 }
+
+//todo: realizar actualizar y eliminar
