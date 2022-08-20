@@ -10,6 +10,7 @@ import {
   HttpStatus,
   HttpCode,
   Res,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { ProductService } from '../../services/product/product.service';
@@ -29,7 +30,8 @@ export class ProductsController {
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   //Utilizando también el response desde express
-  getProduct(@Param('productId') productId: string) {
+  //utilizando pipes para parsear un number y no manden string
+  getProduct(@Param('productId', ParseIntPipe) productId: number) {
     //?@Res() response: Response, iba arriba al lado del @Param
 
     // return {
@@ -38,7 +40,7 @@ export class ProductsController {
     // response.status(200).json({
     //   menssage: `Product ${productId}`,
     // });
-    return this.productService.findOne(+productId);
+    return this.productService.findOne(productId);
   }
 
   @Get()
@@ -69,9 +71,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return {
-      message: `El producto ${id} ha sido eliminado`,
-    };
+  delete(@Param('id') id: string) {
+    return this.productService.remove(+id);
   }
 }
