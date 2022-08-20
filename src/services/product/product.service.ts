@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { Product } from './../../entities/product.entity';
 
+import { CreateProductDTO, UpdateProductDTO } from '../../dtos/products.dto';
+
 @Injectable()
 export class ProductService {
   /**Aquí es donde conectamos los servicios con las BD. En este caso
@@ -34,7 +36,7 @@ export class ProductService {
   }
 
   //Nota: El payload es como el cuerpo de los datos enviados
-  create(payload: any) {
+  create(payload: CreateProductDTO) {
     //contador
     this.counterId = this.counterId + 1;
     const newProduct = {
@@ -45,7 +47,7 @@ export class ProductService {
     return newProduct;
   }
 
-  update(id: number, payload: any) {
+  update(id: number, payload: UpdateProductDTO) {
     const product = this.findOne(id);
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);

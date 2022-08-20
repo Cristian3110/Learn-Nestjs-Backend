@@ -15,6 +15,7 @@ import {
 
 import { ProductService } from '../../services/product/product.service';
 import { ParseIntPipe } from '../../common/parse-int.pipe';
+import { CreateProductDTO } from '../../dtos/products.dto';
 import { response, Response } from 'express';
 
 @Controller('products')
@@ -56,7 +57,7 @@ export class ProductsController {
   }
 
   @Post()
-  create(@Body() payload: any) {
+  create(@Body() payload: CreateProductDTO) {
     // return { msg: 'Producto creado ', Payload };
     return this.productService.create(payload);
   }
