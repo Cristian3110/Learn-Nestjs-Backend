@@ -38,6 +38,7 @@ export class ProductService {
   //Nota: El payload es como el cuerpo de los datos enviados
   create(payload: CreateProductDTO) {
     //contador
+    console.log(payload);
     this.counterId = this.counterId + 1;
     const newProduct = {
       id: this.counterId,
